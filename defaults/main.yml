@@ -1,0 +1,9 @@
+---
+# defaults file for xonotic
+xonotic_version: 0.8.2
+install_path: /opt/
+server_name: "Xonotic $g_xonoticversion Server"
+make_public: 0
+rcon_password:
+welcome_message: "Welcome!"
+extra_configuration:

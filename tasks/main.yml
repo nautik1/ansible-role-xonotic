@@ -1,0 +1,55 @@
+---
+# tasks file for xonotic
+
+- name: Upgrade all packages to the latest version
+  apt:
+    name: "*"
+    state: latest
+
+- name: Install required unzip if not present
+  apt:
+    name: unzip
+    state: present
+
+- name: Add group "xonotic"
+  group: name=xonotic
+
+- name: Add user "xonotic"
+  user: name=xonotic group=xonotic
+
+- name: Get and extract Xonotic archive into {{ install_path }}
+  unarchive:
+    src: https://dl.xonotic.org/xonotic-{{ xonotic_version }}.zip
+    dest: "{{ install_path }}"
+    remote_src: yes
+    owner: xonotic
+    group: xonotic
+
+- name: Move server file to xonotic main directory
+  command: mv {{ install_path }}/Xonotic/server/server_linux.sh {{ install_path }}/Xonotic/
+
+- name: Create the configuration directory
+  file:
+    path: /home/xonotic/.xonotic/data
+    owner: xonotic
+    group: xonotic
+    state: directory
+    mode: '0755'
+
+- name: Copy configuration file
+  template:
+    src: server.cfg
+    dest: /home/xonotic/.xonotic/data/
+
+- name: Copy unit file
+  template:
+    src: xonotic.service
+    dest: /etc/systemd/system/xonotic.service
+    mode: 0644
+
+- name: Start Xonotic service
+  systemd:
+    name: xonotic.service
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

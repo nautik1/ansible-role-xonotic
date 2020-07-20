@@ -1,0 +1,23 @@
+galaxy_info:
+  author: Nautik
+  role_name: xonotic
+  description: This role helps installing a Xonotic server.
+
+  license: MIT
+
+  min_ansible_version: 2.9
+
+  platforms:
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+
+  galaxy_tags:
+    - xonotic
+    - gaming
+    - game
+  
+  dependencies: []

@@ -1,0 +1,14 @@
+[Unit]
+Description=Xonotic Server
+After=network.target
+
+[Service]
+Type=simple
+User=xonotic
+Group=xonotic
+WorkingDirectory=/home/xonotic
+ExecStart={{ install_path }}/Xonotic/server_linux.sh
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
